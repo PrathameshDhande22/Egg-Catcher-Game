@@ -153,18 +153,14 @@ class Game:
         self.screen_placer(self.egg_img,self.egg_x,self.egg_y)
 
     def check_collison(self):
-        # print(f"x={self.egg_x} and y={self.egg_y}")
-        print(f"x={self.basket_x} and y={self.basket_y}")
-        if self.egg_y>self.screen_height-70:
+        if self.egg_y>self.screen_height-60:
             self.screen_placer(self.eggcracked_img,self.egg_x,self.egg_y)
             self.count=0
             self.hen_no=random.randint(1,5)
             self.life-=1
-            # print(f"distance y={abs(self.egg_x-self.basket_y)} and x={abs(self.basket_x-self.egg_y)}")
-        elif abs(self.basket_x-self.egg_y)<54:
-            # print("yes")
-            self.score+=1
-
+            print(f"distance y={abs(self.egg_x-self.basket_x)} and x={abs(self.basket_y-self.egg_y)}")
+        if self.egg_y>570:
+            pass
       
 
 
