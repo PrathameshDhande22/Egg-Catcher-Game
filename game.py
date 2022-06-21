@@ -24,19 +24,23 @@ class Game:
 
     def __gameloop__(self):
         while not self.exit_game:
+            self.screen_placer(self.back_img,0,50)
+            self.screen_placer(self.bar_img,0,0)
             for self.event in pygame.event.get():
                 if self.event.type==pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
+            pygame.display.update()
+
     def __load_image(self):
         # loads the background image
         self.back_img=pygame.image.load("Images/back_img.jpeg")
-        self.back_img=pygame.transform.scale(self.back_img,(self.screen_width,self.screen_height-100))
+        self.back_img=pygame.transform.scale(self.back_img,(self.screen_width,self.screen_height-50))
 
         # loads the bar image
         self.bar_img=pygame.image.load("Images/bar.png")
-        self.bar_img=pygame.transform.scale(self.bar_img,(self.screen_width,100))
+        self.bar_img=pygame.transform.scale(self.bar_img,(self.screen_width,50))
 
         # loads the basket image
         self.basket_img=pygame.image.load("Images/basket.png")
