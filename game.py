@@ -1,4 +1,5 @@
 import sys
+import threading
 import time
 import pygame
 from pygame.locals import *
@@ -19,10 +20,10 @@ class Game:
         self.egg_x=0
         self.egg_y=0
         self.count=0
-        self.vy=4
+        self.vy=5
+        self.text=pygame.font.SysFont("papyrus",50,True)
 
         self.hen_no=random.randint(1,5)
-        print(self.hen_no)
         # self.hen_no=5
 
         self.window=pygame.display.set_mode((self.screen_width,self.screen_height))
@@ -43,7 +44,7 @@ class Game:
             if self.count==0:
                 self.set_egg()
                 self.count=1
-            self.loop_egg(self.egg_x,self.egg_y)
+            threading.Thread(target=self.loop_egg).start()
             self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
             
             self.screen_placer(self.score_img,0,0)
@@ -56,17 +57,19 @@ class Game:
 
             self.key_pressed=pygame.key.get_pressed()
             if self.key_pressed[K_LEFT]:
-                self.basket_x+=-7
+                self.basket_x+=-8
                 
             elif self.key_pressed[K_RIGHT]:
-                self.basket_x+=7
+                self.basket_x+=8
 
             # if the basket gets behind the walls so this is set
             if self.basket_x<0:
                 self.basket_x=0
             elif self.basket_x>818:
                 self.basket_x=818
-
+            self.check_collison()
+            self.score_text=self.text.render(str(self.score),True,(0,0,0))
+            self.screen_placer(self.score_text,140,-15)
             self.egg_y+=self.vy
             pygame.display.update()
 
@@ -143,11 +146,26 @@ class Game:
             self.egg_x=740
             self.egg_y=170
             
-        print(f"Hen no: {self.hen_no} x={self.egg_x} y={self.egg_y}")
+        # print(f"Hen no: {self.hen_no} x={self.egg_x} y={self.egg_y}")
         
-    def loop_egg(self,x,y):
+    def loop_egg(self):
         # time.sleep(0.09)
-        self.screen_placer(self.egg_img,x,y)
+        self.screen_placer(self.egg_img,self.egg_x,self.egg_y)
+
+    def check_collison(self):
+        # print(f"x={self.egg_x} and y={self.egg_y}")
+        print(f"x={self.basket_x} and y={self.basket_y}")
+        if self.egg_y>self.screen_height-70:
+            self.screen_placer(self.eggcracked_img,self.egg_x,self.egg_y)
+            self.count=0
+            self.hen_no=random.randint(1,5)
+            self.life-=1
+            # print(f"distance y={abs(self.egg_x-self.basket_y)} and x={abs(self.basket_x-self.egg_y)}")
+        elif abs(self.basket_x-self.egg_y)<54:
+            # print("yes")
+            self.score+=1
+
+      
 
 
 
