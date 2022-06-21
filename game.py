@@ -33,6 +33,7 @@ class Game:
             self.screen_placer(self.bar_img,0,0)
             self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
             self.screen_placer(self.score_img,0,0)
+            self.set_live()
             for self.event in pygame.event.get():
                 if self.event.type==pygame.QUIT:
                     pygame.quit()
@@ -79,6 +80,25 @@ class Game:
         # loads the score image
         self.score_img=pygame.image.load("Images/score.png")
         self.score_img=pygame.transform.scale(self.score_img,(130,50))
+
+        # loads the life image
+        self.life_img=pygame.image.load("Images/life.png")
+        self.life_img=pygame.transform.scale(self.life_img,(40,40))
+
+    def set_live(self):
+        if self.life==3:
+             self.screen_placer(self.life_img,820,4)
+             self.screen_placer(self.life_img,770,4)
+             self.screen_placer(self.life_img,720,4)
+
+        elif self.life==2:
+            self.screen_placer(self.life_img,820,4)
+            self.screen_placer(self.life_img,770,4)
+
+        elif self.life==1:
+            self.screen_placer(self.life_img,820,4)
+
+
 
 
 if __name__=="__main__":
