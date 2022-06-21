@@ -32,6 +32,7 @@ class Game:
             self.screen_placer(self.back_img,0,50)
             self.screen_placer(self.bar_img,0,0)
             self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
+            self.screen_placer(self.score_img,0,0)
             for self.event in pygame.event.get():
                 if self.event.type==pygame.QUIT:
                     pygame.quit()
@@ -74,6 +75,10 @@ class Game:
         # loads the hen image
         self.hen_img=pygame.image.load("Images/hen.png")
         self.hen_img=pygame.transform.scale(self.hen_img,(50,50))
+
+        # loads the score image
+        self.score_img=pygame.image.load("Images/score.png")
+        self.score_img=pygame.transform.scale(self.score_img,(130,50))
 
 
 if __name__=="__main__":
