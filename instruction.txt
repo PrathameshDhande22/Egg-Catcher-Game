@@ -1,0 +1,26 @@
+1. Use Left and Right arrow to Move 
+    the Basket.
+
+2. You will get only 3 lives for 
+    Playing Game.
+
+3. You can Pause the game by Pressing
+    the space bar.
+
+4. You can return to the game by 
+    pressing the enter button while in 
+    paused.
+
+5. If game is over press 1 to play 
+    again.
+
+6. If game is over press 2 to go to main 
+    menu.
+
+7. If game is over press 3 to exit.
+
+8. Catch the eggs in the basket as many 
+    as you can and break the highscore.
+
+9. If you miss to catch the egg then your 
+    1 live will get over.
