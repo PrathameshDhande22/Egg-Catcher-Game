@@ -1,5 +1,6 @@
 import sys
 import pygame
+from pygame.locals import *
 
 class Game:
     def __init__(self):
@@ -11,11 +12,14 @@ class Game:
         self.exit_game=False
         self.life=3
         self.score=0
+        self.basket_x=self.screen_width/2
+        self.basket_y=600
 
         self.window=pygame.display.set_mode((self.screen_width,self.screen_height))
         self.icon_img=pygame.image.load("Images/g_icon.png")
         pygame.display.set_icon(self.icon_img)
         pygame.display.set_caption("Egg Catcher Game BY Prathamesh Dhande")
+        self.clock=pygame.time.Clock()
         self.__load_image()
         self.__gameloop__()
 
@@ -24,12 +28,25 @@ class Game:
 
     def __gameloop__(self):
         while not self.exit_game:
+            self.clock.tick(40)
             self.screen_placer(self.back_img,0,50)
             self.screen_placer(self.bar_img,0,0)
+            self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
             for self.event in pygame.event.get():
                 if self.event.type==pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+            self.key_pressed=pygame.key.get_pressed()
+            if self.key_pressed[K_LEFT]:
+                self.basket_x+=-7
+            elif self.key_pressed[K_RIGHT]:
+                self.basket_x+=7
+
+            if self.basket_x<0:
+                self.basket_x=0
+            elif self.basket_x>818:
+                self.basket_x=818
 
             pygame.display.update()
 
@@ -44,7 +61,7 @@ class Game:
 
         # loads the basket image
         self.basket_img=pygame.image.load("Images/basket.png")
-        self.basket_img=pygame.transform.scale(self.basket_img,(40,40))
+        self.basket_img=pygame.transform.scale(self.basket_img,(80,80))
 
         # loads the egg_cracked image
         self.eggcracked_img=pygame.image.load("Images/egg_cracked.png")
