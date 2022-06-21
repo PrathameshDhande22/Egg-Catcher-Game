@@ -1,6 +1,7 @@
 import sys
 import pygame
 from pygame.locals import *
+import random
 
 class Game:
     def __init__(self):
@@ -29,11 +30,12 @@ class Game:
     def __gameloop__(self):
         while not self.exit_game:
             self.clock.tick(40)
-            self.screen_placer(self.back_img,0,50)
-            self.screen_placer(self.bar_img,0,0)
+            self.screen_placer(self.back_img,0,0)
+            # self.screen_placer(self.bar_img,0,0)
             self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
             self.screen_placer(self.score_img,0,0)
             self.set_live()
+            self.set_hens()
             for self.event in pygame.event.get():
                 if self.event.type==pygame.QUIT:
                     pygame.quit()
@@ -42,6 +44,7 @@ class Game:
             self.key_pressed=pygame.key.get_pressed()
             if self.key_pressed[K_LEFT]:
                 self.basket_x+=-7
+                
             elif self.key_pressed[K_RIGHT]:
                 self.basket_x+=7
 
@@ -55,11 +58,7 @@ class Game:
     def __load_image(self):
         # loads the background image
         self.back_img=pygame.image.load("Images/back_img.jpeg")
-        self.back_img=pygame.transform.scale(self.back_img,(self.screen_width,self.screen_height-50))
-
-        # loads the bar image
-        self.bar_img=pygame.image.load("Images/bar.png")
-        self.bar_img=pygame.transform.scale(self.bar_img,(self.screen_width,50))
+        self.back_img=pygame.transform.scale(self.back_img,(self.screen_width,self.screen_height))
 
         # loads the basket image
         self.basket_img=pygame.image.load("Images/basket.png")
@@ -75,7 +74,7 @@ class Game:
 
         # loads the hen image
         self.hen_img=pygame.image.load("Images/hen.png")
-        self.hen_img=pygame.transform.scale(self.hen_img,(50,50))
+        self.hen_img=pygame.transform.scale(self.hen_img,(140,110))
 
         # loads the score image
         self.score_img=pygame.image.load("Images/score.png")
@@ -87,16 +86,24 @@ class Game:
 
     def set_live(self):
         if self.life==3:
-             self.screen_placer(self.life_img,820,4)
-             self.screen_placer(self.life_img,770,4)
-             self.screen_placer(self.life_img,720,4)
+             self.screen_placer(self.life_img,850,6)
+             self.screen_placer(self.life_img,800,6)
+             self.screen_placer(self.life_img,750,6)
 
         elif self.life==2:
-            self.screen_placer(self.life_img,820,4)
-            self.screen_placer(self.life_img,770,4)
+            self.screen_placer(self.life_img,850,6)
+            self.screen_placer(self.life_img,800,6)
 
         elif self.life==1:
-            self.screen_placer(self.life_img,820,4)
+            self.screen_placer(self.life_img,850,6)
+
+    def set_hens(self):
+        self.screen_placer(self.hen_img,20,70)
+        self.screen_placer(self.hen_img,190,70)
+        self.screen_placer(self.hen_img,360,70)
+        self.screen_placer(self.hen_img,530,70)
+        self.screen_placer(self.hen_img,700,70)
+        
 
 
 
