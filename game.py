@@ -31,7 +31,6 @@ class Game:
         while not self.exit_game:
             self.clock.tick(40)
             self.screen_placer(self.back_img,0,0)
-            # self.screen_placer(self.bar_img,0,0)
             self.screen_placer(self.basket_img,self.basket_x,self.basket_y)
             self.screen_placer(self.score_img,0,0)
             self.set_live()
@@ -98,6 +97,7 @@ class Game:
             self.screen_placer(self.life_img,850,6)
 
     def set_hens(self):
+        pygame.draw.line(self.window,(150,75,0),(0,155),(900,155),width=30)
         self.screen_placer(self.hen_img,20,70)
         self.screen_placer(self.hen_img,190,70)
         self.screen_placer(self.hen_img,360,70)
