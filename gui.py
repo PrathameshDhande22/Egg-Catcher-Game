@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import Image,ImageTk
+import pygame
 import game
 
 class GUI(Tk):
@@ -14,7 +15,7 @@ class GUI(Tk):
         self.iconbitmap("Images/icon.ico")
         self.count=0
         self._load_image()
-        self.__gui__()
+        
 
     def __gui__(self):
         Label(self,image=self.img1).place(x=0,y=0)
@@ -58,13 +59,18 @@ class GUI(Tk):
             self.count=0
         
     def play(self):
-        self.destroy()
-        c=game.Game()
-        
+        try:
+            self.destroy()
+            c=game.Game()
+            c.__gameloop__()
+        except pygame.error:
+            pass
+            
 
 
 
 
 if __name__=="__main__":
     c=GUI()
+    c.__gui__()
     c.mainloop()

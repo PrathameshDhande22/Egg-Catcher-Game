@@ -39,7 +39,7 @@ class Game:
         pygame.display.set_caption("Egg Catcher Game BY Prathamesh Dhande")
         self.clock=pygame.time.Clock()
         self.__load_image()
-        self.__gameloop__()
+        
 
     def screen_placer(self,img,x,y):
         self.window.blit(img,(x,y))
@@ -80,6 +80,7 @@ class Game:
                             pygame.quit()
                             import gui
                             g=gui.GUI()
+                            g.__gui__()
                                 
                         if self.event.key==pygame.K_3:
                             pygame.quit()
@@ -141,10 +142,9 @@ class Game:
                 self.score_text=self.text.render(str(self.score),True,(0,0,0))
                 self.screen_placer(self.score_text,140,-15)
                 self.egg_y+=self.vy
-            try:
-                pygame.display.update()
-            except pygame.error:
-                g=gui.GUI()
+            
+            pygame.display.update()
+
 
     def __load_image(self):
         # loads the background image
@@ -281,7 +281,6 @@ class Game:
         self.screen_placer(self.txt1,275,400)
         self.screen_placer(self.txt2,275,450)
         self.screen_placer(self.txt3,275,500)
-
         
 
 
