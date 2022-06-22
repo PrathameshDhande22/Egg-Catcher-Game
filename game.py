@@ -76,7 +76,10 @@ class Game:
 
                                 
                         if self.event.key==pygame.K_2:
-                            pass
+                            self.game_over=True
+                            pygame.quit()
+                            import gui
+                            g=gui.GUI()
                                 
                         if self.event.key==pygame.K_3:
                             pygame.quit()
@@ -138,7 +141,10 @@ class Game:
                 self.score_text=self.text.render(str(self.score),True,(0,0,0))
                 self.screen_placer(self.score_text,140,-15)
                 self.egg_y+=self.vy
-            pygame.display.update()
+            try:
+                pygame.display.update()
+            except pygame.error:
+                g=gui.GUI()
 
     def __load_image(self):
         # loads the background image
