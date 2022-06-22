@@ -162,16 +162,13 @@ class Game:
     def check_collison(self):
         self.egg_rect=pygame.Rect(self.egg_x,self.egg_y,45,60)
         self.basket_rect=pygame.Rect(self.basket_x+30,self.basket_y+40,50,70)
-        # print(self.egg_rect.colliderect(self.basket_rect))
         if self.egg_y>self.screen_height-60:
-            
             self.crack=True
             self.count=0
             self.hen_no=random.randint(1,5)
             self.life-=1
-            # print(f"distance y={abs(self.egg_x-self.basket_x)} and x={abs(self.basket_y-self.egg_y)}")
+            
         elif self.egg_rect.colliderect(self.basket_rect):
-            # print("working")
             self.crack=False
             self.score+=1
             self.hen_no=random.randint(1,5)
