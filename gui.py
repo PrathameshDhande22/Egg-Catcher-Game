@@ -2,10 +2,12 @@ from tkinter import *
 from PIL import Image,ImageTk
 import pygame
 import game
+import pygame.mixer
 
 class GUI(Tk):
     def __init__(self):
         super().__init__()
+        pygame.mixer.init()
         self.height=700
         self.width=450
         self.geometry(f"{self.width}x{self.height}")
@@ -14,6 +16,8 @@ class GUI(Tk):
         self.title("Egg Catcher")
         self.iconbitmap("Images/icon.ico")
         self.count=0
+        self.music=False
+        self.play_music()
         self._load_image()
         
 
@@ -53,18 +57,34 @@ class GUI(Tk):
     def set_sound(self):
         if self.count==0:
             self.soundB.config(image=self.img5)
+            self.music=True
+            self.play_music()
             self.count=1
         elif self.count==1:
             self.soundB.config(image=self.img6)
+            self.music=False
+            self.play_music()
+           
             self.count=0
         
     def play(self):
         try:
             self.destroy()
-            c=game.Game()
+            c=game.Game(self.music)
             c.__gameloop__()
         except pygame.error:
             pass
+
+    def play_music(self):
+        if self.music:
+            pygame.mixer.music.stop()
+        else:
+            pygame.mixer.music.load("Sounds/bgsound.mp3")
+            pygame.mixer.music.play(-1)
+
+
+ 
+
         
             
 

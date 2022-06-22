@@ -6,8 +6,10 @@ import random
 import configparser
 
 class Game:
-    def __init__(self):
+    def __init__(self,music):
+        self.music=music
         pygame.init()
+        pygame.mixer.init()
 
         # game variables
         self.screen_height=700
@@ -29,6 +31,8 @@ class Game:
         self.game_over=False
         self.high_score=0
         self.conti=False
+        self.pause=False
+        self.g_count=0
 
         self.hen_no=random.randint(1,5)
         # self.hen_no=5
@@ -38,6 +42,7 @@ class Game:
         pygame.display.set_icon(self.icon_img)
         pygame.display.set_caption("Egg Catcher Game BY Prathamesh Dhande")
         self.clock=pygame.time.Clock()
+        self.play_bgmusic()
         self.__load_image()
         
 
@@ -48,8 +53,11 @@ class Game:
         while not self.exit_game:
             self.clock.tick(40)
             self.get_highscore()
+           
             if self.game_over:
-                
+                if self.g_count==0:
+                    self.play_gameover_sound()
+                    self.g_count=1
                 if int(self.high_score)<=self.score:
                     self.window.fill((21, 254, 12))
                     self.screen_placer(self.highscore_img,150,50)
@@ -74,7 +82,7 @@ class Game:
                         if self.event.key==pygame.K_1:
                             self.conti=False
                             self.game_over=False
-                            c=Game()
+                            c=Game(self.music)
                             c.__gameloop__()
 
                                 
@@ -101,7 +109,7 @@ class Game:
                         if self.event.key==pygame.K_1:
                             self.conti=False
                             self.game_over=False
-                            c=Game()
+                            c=Game(self.music)
                             c.__gameloop__()
 
                                 
@@ -134,12 +142,22 @@ class Game:
                         pygame.quit()
                         sys.exit()
 
+                    elif self.event.type==pygame.KEYDOWN:
+                        if self.event.key==pygame.K_SPACE:
+                            self.vy=0
+                            self.pause=True
+                        if self.event.key==pygame.K_RETURN:
+                            self.vy=6
+                            self.pause=False
+
                 self.key_pressed=pygame.key.get_pressed()
                 if self.key_pressed[K_LEFT]:
                     self.basket_x+=-8
                     
                 elif self.key_pressed[K_RIGHT]:
                     self.basket_x+=8
+
+                self.pause_screen()
 
                 # if the basket gets behind the walls so this is set
                 if self.basket_x<0:
@@ -254,6 +272,7 @@ class Game:
         self.egg_rect=pygame.Rect(self.egg_x,self.egg_y,45,60)
         self.basket_rect=pygame.Rect(self.basket_x+30,self.basket_y+40,50,70)
         if self.egg_y>self.screen_height-70:
+            self.play_cracked_sound()
             self.crack=True
             self.coord.insert(0,self.egg_x)
             self.coord.insert(1,self.egg_y)
@@ -291,10 +310,44 @@ class Game:
         self.screen_placer(self.txt1,275,400)
         self.screen_placer(self.txt2,275,450)
         self.screen_placer(self.txt3,275,500)
+
+    def pause_screen(self):
+        if self.pause:
+            self.paused_text=self.text1.render("Paused",True,(0,0,0))
+            self.retun=self.text2.render("Press Enter To Play Game",True,(0,0,0))
+            self.screen_placer(self.paused_text,250,300)
+            self.screen_placer(self.retun,200,420)
+            
+        else:
+            self.vy=6
+            self.pause=False
+
+    def play_bgmusic(self):
+        
+        if self.music:
+            pygame.mixer.music.stop()
+        else:
+            pygame.mixer.music.load("Sounds/bgsound.mp3")
+            pygame.mixer.music.play(-1)
+
+    def play_cracked_sound(self):
+        self.cracked_sound=pygame.mixer.Sound("Sounds/egg_cracked.mp3")
+        if self.music:
+            self.cracked_sound.stop()
+        else:
+            self.cracked_sound.play(0)
+
+    def play_gameover_sound(self):
+        if self.music:
+            pygame.mixer.music.stop()
+        else:
+            pygame.mixer.music.load("Sounds/game_over.mp3")
+            pygame.mixer.music.play(1)
+            
         
 
 
 
 if __name__=="__main__":
-    c=Game()
+    c=Game(False)
     c.__gameloop__()
