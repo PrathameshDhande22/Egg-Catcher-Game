@@ -20,7 +20,7 @@ class Game:
         self.egg_x=0
         self.egg_y=0
         self.count=0
-        self.vy=7
+        self.vy=8
         self.text=pygame.font.SysFont("papyrus",50,True)
         self.text1=pygame.font.SysFont("papyrus",90,True)
         self.text2=pygame.font.SysFont("forte",40)
@@ -54,7 +54,7 @@ class Game:
                     self.window.fill((21, 254, 12))
                     self.screen_placer(self.highscore_img,150,50)
                     self.highscore_text=self.text1.render(str(self.high_score),True,(0,0,0))
-                    self.screen_placer(self.highscore_text,450,400)
+                    self.screen_placer(self.highscore_text,420,400)
                     self.info_text=self.text.render("Press Enter to Continue",True,(0,0,0))
                     self.screen_placer(self.info_text,150,580)
                 
@@ -72,7 +72,10 @@ class Game:
                             self.game_over=False
 
                         if self.event.key==pygame.K_1:
+                            self.conti=False
+                            self.game_over=False
                             c=Game()
+                            c.__gameloop__()
 
                                 
                         if self.event.key==pygame.K_2:
@@ -96,11 +99,18 @@ class Game:
                     
                     if self.event.type==pygame.KEYDOWN:
                         if self.event.key==pygame.K_1:
+                            self.conti=False
+                            self.game_over=False
                             c=Game()
+                            c.__gameloop__()
 
                                 
                         if self.event.key==pygame.K_2:
-                            pass
+                            self.game_over=True
+                            pygame.quit()
+                            import gui
+                            g=gui.GUI()
+                            g.__gui__()
                                 
                         if self.event.key==pygame.K_3:
                             pygame.quit()
@@ -287,3 +297,4 @@ class Game:
 
 if __name__=="__main__":
     c=Game()
+    c.__gameloop__()
