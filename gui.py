@@ -25,7 +25,7 @@ class GUI(Tk):
         Label(self,image=self.img1).place(x=0,y=0)
         Button(image=self.img2,background="#c7fad6",relief="flat",activebackground="#c7fad6",command=self.play).place(x=190,y=360)
         Button(image=self.img3,background="#c3fada",relief="flat",activebackground="#c3fada",command=self.destroy).place(x=100,y=360)
-        Button(image=self.img4,background="#c0f9dc",relief="flat",activebackground="#c0f9dc").place(x=320,y=360)
+        Button(image=self.img4,background="#c0f9dc",relief="flat",activebackground="#c0f9dc",command=self.instruction).place(x=320,y=360)
         self.soundB=Button(image=self.img6,background="#fdfcc2",relief="flat",activebackground="#fdfcc2",command=self.set_sound)
         self.soundB.place(x=210,y=470)
 
@@ -53,6 +53,14 @@ class GUI(Tk):
         # loads the sound on button
         self.img6=Image.open("Images/sound_on.png").resize((50,50))
         self.img6=ImageTk.PhotoImage(image=self.img6)
+
+        # loads the letter image
+        self.img7=Image.open("Images/letter.png").resize((self.width,self.height+50))
+        self.img7=ImageTk.PhotoImage(image=self.img7)
+
+        # loads the back image
+        self.img8=Image.open("Images/back.png").resize((40,40))
+        self.img8=ImageTk.PhotoImage(image=self.img8)
 
     def set_sound(self):
         if self.count==0:
@@ -82,7 +90,19 @@ class GUI(Tk):
             pygame.mixer.music.load("Sounds/bgsound.mp3")
             pygame.mixer.music.play(-1)
 
+    def instruction(self):
+        self.inst_frame=Frame(self,width=self.width,height=self.height+30)
+        self.inst_frame.place(x=0,y=0)
+        Label(self.inst_frame,image=self.img7).place(x=0,y=0)
+        Button(self.inst_frame,image=self.img8,background="#b99052",activebackground="#b99052",relief="flat",command=lambda : self.inst_frame.place_forget()).place(x=10,y=10)
+        text='''My name is prathames\nInstruction'''
+        Label(self.inst_frame,text="INSTRUCTION",background="#d7b97e",font=("Times new roman",20)).place(x=130,y=70)
+        with open("instruction.txt","r") as f:
+            data=f.read()
+        Label(self.inst_frame,text=data,background="#d7b97e",font=("Times new roman",13),justify="left").place(x=74,y=127)
+        
 
+       
  
 
         
