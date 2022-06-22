@@ -57,11 +57,8 @@ class Game:
                     self.screen_placer(self.highscore_text,450,400)
                     self.info_text=self.text.render("Press Enter to Continue",True,(0,0,0))
                     self.screen_placer(self.info_text,150,580)
-
-                if self.conti:
-                    self.game_over_screen()
                 
-                else:
+                elif int(self.high_score)>self.score:
                     self.game_over_screen()
                 
                 for self.event in pygame.event.get():
@@ -72,7 +69,38 @@ class Game:
                     if self.event.type==pygame.KEYDOWN:
                         if self.event.key==pygame.K_RETURN:
                             self.conti=True
-                            
+                            self.game_over=False
+
+                        if self.event.key==pygame.K_1:
+                            c=Game()
+
+                                
+                        if self.event.key==pygame.K_2:
+                            pass
+                                
+                        if self.event.key==pygame.K_3:
+                            pygame.quit()
+                            sys.exit()
+
+                        
+            elif self.conti:
+                self.game_over_screen()
+                for self.event in pygame.event.get():
+                    if self.event.type==pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    
+                    if self.event.type==pygame.KEYDOWN:
+                        if self.event.key==pygame.K_1:
+                            c=Game()
+
+                                
+                        if self.event.key==pygame.K_2:
+                            pass
+                                
+                        if self.event.key==pygame.K_3:
+                            pygame.quit()
+                            sys.exit()
 
 
             else:
