@@ -282,6 +282,7 @@ class Game:
             self.life-=1
             
         elif self.egg_rect.colliderect(self.basket_rect):
+            self.play_catched_sound()
             self.crack=False
             self.score+=1
             self.hen_no=random.randint(1,5)
@@ -341,8 +342,15 @@ class Game:
         if self.music:
             pygame.mixer.music.stop()
         else:
-            pygame.mixer.music.load("Sounds/game_over.mp3")
+            pygame.mixer.music.load("Sounds/game_over.wav")
             pygame.mixer.music.play(1)
+
+    def play_catched_sound(self):
+        self.catched_sound=pygame.mixer.Sound("Sounds/egg_catched.wav")
+        if self.music:
+            self.catched_sound.stop()
+        else:
+            self.catched_sound.play(0)
             
         
 
