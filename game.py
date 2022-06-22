@@ -20,8 +20,9 @@ class Game:
         self.egg_x=0
         self.egg_y=0
         self.count=0
-        self.vy=5
+        self.vy=6
         self.text=pygame.font.SysFont("papyrus",50,True)
+        self.crack=False
 
         self.hen_no=random.randint(1,5)
         # self.hen_no=5
@@ -68,6 +69,12 @@ class Game:
             elif self.basket_x>818:
                 self.basket_x=818
             self.check_collison()
+
+            # if egg is cracked then the image should appear
+            # if self.crack:
+            #     self.screen_placer(self.eggcracked_img,self.egg_x,self.egg_y)
+            # else:
+            #     self.screen_placer(self.egg_img,self.egg_x,self.egg_y)
             self.score_text=self.text.render(str(self.score),True,(0,0,0))
             self.screen_placer(self.score_text,140,-15)
             self.egg_y+=self.vy
@@ -80,7 +87,7 @@ class Game:
 
         # loads the basket image
         self.basket_img=pygame.image.load("Images/basket.png")
-        self.basket_img=pygame.transform.scale(self.basket_img,(90,90))
+        self.basket_img=pygame.transform.scale(self.basket_img,(100,80))
 
         # loads the egg_cracked image
         self.eggcracked_img=pygame.image.load("Images/egg_cracked.png")
@@ -153,14 +160,24 @@ class Game:
         self.screen_placer(self.egg_img,self.egg_x,self.egg_y)
 
     def check_collison(self):
+        self.egg_rect=pygame.Rect(self.egg_x,self.egg_y,45,60)
+        self.basket_rect=pygame.Rect(self.basket_x+30,self.basket_y+40,50,70)
+        # print(self.egg_rect.colliderect(self.basket_rect))
         if self.egg_y>self.screen_height-60:
-            self.screen_placer(self.eggcracked_img,self.egg_x,self.egg_y)
+            
+            self.crack=True
             self.count=0
             self.hen_no=random.randint(1,5)
             self.life-=1
-            print(f"distance y={abs(self.egg_x-self.basket_x)} and x={abs(self.basket_y-self.egg_y)}")
-        if self.egg_y>570:
-            pass
+            # print(f"distance y={abs(self.egg_x-self.basket_x)} and x={abs(self.basket_y-self.egg_y)}")
+        elif self.egg_rect.colliderect(self.basket_rect):
+            # print("working")
+            self.crack=False
+            self.score+=1
+            self.hen_no=random.randint(1,5)
+            self.count=0
+            self.egg_y=700
+        
       
 
 
