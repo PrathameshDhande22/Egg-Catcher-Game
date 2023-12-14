@@ -9,9 +9,10 @@
 	</p>
 
 ### Modules Required:
+
 1. Pygame
 2. Threading
-3. Tkinter 
+3. Tkinter
 4. PIL or pillow
 5. configparser
 6. sys
@@ -26,13 +27,14 @@
 **pygame** Module is very important as its the module which provides the interface to built the game.
 <br />
 
+### Don't Delete the config.ini file it may cause problems.
+
 If you are running the directly .py files please make sure that **pygame** and **pillow** module is installed or not.<br />
-if not install using the following pip command:
->pip install pygame
+if not installed use the following pip command:
 
->pip install pillow
+> pip install -r requirements.txt
 
-If you have any error while accessing or running the game contact me :   [Mail me](mailto:prathameshdhande534@gmail.com) 
+If you have any error while accessing or running the game contact me : [Mail me](mailto:prathameshdhande534@gmail.com)
 
 ##### If You love this Project then don't forget to fork me and star me.
 
@@ -40,6 +42,7 @@ I have released the Game in the form of .exe files which is supported to run onl
 Simply install and play the game.<br />
 
 ## Screenshots of the Game:
+
 <h4>1. GUI of the Game</h4>
 <img src="https://user-images.githubusercontent.com/87264935/175234995-b387b654-f030-4c10-b66c-09501e79f918.png" width=500> <br />
 <h4>2. Game Playing Screen</h4>
